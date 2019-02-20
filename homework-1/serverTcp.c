@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 /* port */
 #define PORT 20213
@@ -22,8 +23,12 @@ int main()
   struct sockaddr_in server; // struct used by server
   struct sockaddr_in from;
   char msg[100]; //message received from client
-  int a, b, c;
-  int d, x1, x2;
+  double a;
+  double b;
+  double c;
+  double d;
+  double x1;
+  double x2;
   char msgrasp[100] = " "; //response for client
   int sd;                  //socket descript
 
@@ -84,27 +89,83 @@ int main()
     printf("[server] Waiting message...\n");
     fflush(stdout);
 
-    /* read message from client */
+    /* read message from client [A]*/
     if (read(client, msg, 100) <= 0)
     {
       perror("[server] read() error from client.\n");
-
-      a = (int)msg;
-
       fflush(stdout);
-
       close(client); /* close client connection */
       continue;      /* listen next */
     }
 
-    //printf("[server]Mesajul a fost receptionat...%s\n", msg);
+    a = atof(msg);
+    printf("[server] Input received...%s\n", msg);
+
+    /* connection , waiting user input for b*/
+    bzero(msg, 5);
+    printf("[server] Waiting message...\n");
+    fflush(stdout);
+
+    /* read message from client[B] */
+    if (read(client, msg, 100) <= 0)
+    {
+      perror("[server] read() error from client.\n");
+      fflush(stdout);
+      close(client); /* close client connection */
+      continue;      /* listen next */
+    }
+
+    b = atof(msg);
+    printf("[server] Input received...%s\n", msg);
+
+    /* connection , waiting user input for c */
+    bzero(msg, 5);
+    printf("[server] Waiting message...\n");
+    fflush(stdout);
+
+    /* read message from client[C] */
+    if (read(client, msg, 100) <= 0)
+    {
+      perror("[server] read() error from client.\n");
+      fflush(stdout);
+      close(client); /* close client connection */
+      continue;      /* listen next */
+    }
+
+    c = atof(msg);
+    printf("[server] Input received...%s\n", msg);
+
+    printf("[server] %fx^2+ %fx + %f =0",a,b,c);
 
     /*prepare respons */
     bzero(msgrasp, 100);
-    //strcat(msgrasp, "A = ");
-    strcat(msgrasp, a);
 
-    printf("[server] Send response to client...%s\n", msgrasp);
+    d = (b*b) - (4*a*c);
+
+    if(d>0)
+    {
+      double root = sqrt(d);
+      x1 = (-b + root)/(2*a); 
+      x2 = (-b - root)/(2*a); 
+
+      sprintf(msgrasp,"equation have two distinct roots \n x1=%f; \n x2=%f",x1,x2);
+    }
+    else if(d==0)
+    {
+      x1 = -b/(2*a);
+
+      sprintf(msgrasp,"there are exactly one real root \n x1=x2=%f",x1);
+    }
+    else
+    {
+      sprintf(msgrasp, "there are no real roots \n");
+    }
+    
+    
+
+    ///////////////////////////////////////////////////////////////////////////
+  
+    printf("[server] Send response to client...%a\n", a);
 
     /* send response */
     if (write(client, msgrasp, 100) <= 0)
@@ -113,7 +174,7 @@ int main()
       continue; /* listen next */
     }
     else
-      printf("[server]Response was send succesful.\n");
+      printf("[server] Response was send succesful.\n");
     /* close connection */
     close(client);
   } /* while */

@@ -54,10 +54,36 @@ int main(int argc, char *argv[])
         return errno;
     }
 
-    /* message read */
+    /* message read (a)*/
     bzero(msg, 100);
-    printf("[client] ax^2+bx+c=0\n");
+    printf("[client] Equation model: ax^2+bx+c=0\n");
     printf("[client] Type value for a: ");
+    fflush(stdout);
+    read(0, msg, 100);
+
+    /* send message to server */
+    if (write(sd, msg, 100) <= 0)
+    {
+        perror("[client] Error on write() to server.\n");
+        return errno;
+    }
+    
+    /* message read(b) */
+    bzero(msg, 100);
+    printf("[client] Type value for b: ");
+    fflush(stdout);
+    read(0, msg, 100);
+
+    /* send message to server */
+    if (write(sd, msg, 100) <= 0)
+    {
+        perror("[client] Error on write() to server.\n");
+        return errno;
+    }
+
+    /* message read(c) */
+    bzero(msg, 100);
+    printf("[client] Type value for c: ");
     fflush(stdout);
     read(0, msg, 100);
 
@@ -75,7 +101,7 @@ int main(int argc, char *argv[])
         return errno;
     }
     /* print message */
-    printf("[client]Received message: %s\n", msg);
+    printf("[client] Received message: %s\n", msg);
 
     /* close connection */
     close(sd);
