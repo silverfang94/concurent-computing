@@ -1,13 +1,5 @@
 # Concurrent and Distributed Programming
 
-##### Uaic
-
-###### url: ssh fenrir.info.uaic.ro
-
-###### login: student5
-
-###### pass: AbHpcx5PmU
-
 ### Homework 1 (Quadratic equation)
 
 ```c
