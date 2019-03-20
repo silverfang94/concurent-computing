@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
   {
+    uid: {
+      type: Number,
+      required: true,
+      unique: true
+    },
     manufacturer: {
       type: String,
       required: true

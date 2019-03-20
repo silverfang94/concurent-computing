@@ -1,8 +1,10 @@
+const express = require('express');
 const faker = require('faker');
 
 faker.locale = 'en';
 
-const models = require('./models');
+const models = require('../models');
+const router = express.Router();
 
 const classArray = ['Custom', 'Luxury', 'MPV', 'SUV', 'Sport'];
 const sizeArray = [
@@ -58,13 +60,14 @@ const styleArray = [
   'Vis-à-vis'
 ];
 
-module.exports = () => {
+router.get('/vehicles/generate', (req, res) => {
   models.vehicle
-    .remove()
+    .deleteMany()
     .then(() => {
-      Array.from({ length: 1 }).forEach(() => {
+      Array.from({ length: 20 }).forEach(function(item, index) {
         models.vehicle
           .create({
+            uid: index,
             manufacturer: faker.lorem.word(),
             model: faker.lorem.word(),
             class: classArray[faker.random.number(4)],
@@ -76,9 +79,24 @@ module.exports = () => {
             in_leasing: faker.random.boolean(),
             security_system: faker.random.boolean()
           })
-          .then(console.log)
+          .then(vehicle => {
+            console.log(vehicle);
+          })
           .catch(console.log);
       });
     })
-    .catch(console.log);
-};
+    .then(() => {
+      res.json({
+        ok: true,
+        message: 'Data are generate with faker.'
+      });
+    })
+    .catch(err => {
+      res.json({
+        ok: false,
+        error: err
+      });
+    });
+});
+
+module.exports = router;

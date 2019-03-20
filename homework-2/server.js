@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 const config = require('./config');
-const mocks = require('./mocks');
 
 //database
 mongoose.connection
@@ -13,8 +12,6 @@ mongoose.connection
   .once('open', () => {
     const info = mongoose.connections[0];
     console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
-    mocks();
-    console.log('Data is generated with faker.');
   });
 
 mongoose.connect(config.MONGO_URL, {
@@ -33,6 +30,8 @@ app.use(bodyParser.json());
 
 //routes
 app.use('/', routes.vehicles);
+app.use('/', routes.generate);
+app.use('/', routes.vehicle);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
