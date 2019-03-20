@@ -1,6 +1,6 @@
 # Concurrent and Distributed Programming
 
-### Homework 1 (Quadratic equation)
+## Homework 1 (Quadratic equation)
 
 ```c
 equation: ax^2+bx+c=0
@@ -18,13 +18,13 @@ Delta < 0 => "Equation are no real roots"
 }
 ```
 
-### Homework 2 (Node REST service)
+## Homework 2 (Node REST service)
 
 - Database: Mongo (mLab)
   - Node pakage: Mongoose
 - REST Client: Postman
 
-##### Description
+### Description
 
 - Table(Collection): vehicles
 
