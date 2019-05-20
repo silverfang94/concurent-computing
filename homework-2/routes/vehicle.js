@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('../node_modules/express');
 
 const router = express.Router();
 
@@ -41,22 +41,31 @@ router.post('/vehicle', (req, res) => {
       error: 'Body are empty.'
     });
   } else {
-    models.vehicle
-      .create(vehicle)
-      .then(vehicle => {
+    models.vehicle.findOne({ uid: vehicle.uid }).then(findVehicle => {
+      if (findVehicle) {
         res.json({
           ok: true,
-          message: 'Object are inserted',
-          vehicle: vehicle
+          message: 'Vehicle with that uid stil exist.'
         });
-      })
-      .catch(error => {
-        console.log(err);
-        res.json({
-          ok: false,
-          error: err
-        });
-      });
+      } else {
+        models.vehicle
+          .create(vehicle)
+          .then(vehicle => {
+            res.json({
+              ok: true,
+              message: 'Object are inserted',
+              vehicle: vehicle
+            });
+          })
+          .catch(error => {
+            console.log(err);
+            res.json({
+              ok: false,
+              error: err
+            });
+          });
+      }
+    });
   }
 });
 

@@ -36,8 +36,7 @@ app.use('/', routes.vehicle);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
-  err.status = 404;
-  res.json({ err });
+  res.status(404);
 });
 
 app.listen(config.PORT, () =>

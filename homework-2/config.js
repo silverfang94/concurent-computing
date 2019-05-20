@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-const path = require('path');
+const dotenv = require('./node_modules/dotenv/lib/main');
+const path = require('./node_modules/path');
 
 const root = path.join.bind(this, __dirname);
 dotenv.config({ path: root('.env') });

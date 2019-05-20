@@ -11,17 +11,20 @@ router.get('/vehicles', (req, res) => {
     .find(query)
     .then(vehicles => {
       if (!vehicles) {
+        res.status(204);
         res.json({
           ok: false,
           error: 'Collection is empty!'
         });
       } else {
+        res.status(200);
         res.json({
           vehicles: vehicles
         });
       }
     })
     .catch(err => {
+      res.status(500);
       console.log(err);
       res.json({
         ok: false,

@@ -24,7 +24,7 @@ Delta < 0 => "Equation are no real roots"
   - Node pakage: Mongoose
 - REST Client: Postman
 
-### Description
+### H2 Description
 
 - Table(Collection): vehicles
 
@@ -41,3 +41,31 @@ Delta < 0 => "Equation are no real roots"
     - GET: get vehicle by id
     - PUT: update vehicle by id
     - DELETE: delete vehicle by id
+
+## Homework 3 (Distributed applications using Google Cloud)
+
+### H3 Description
+
+Create an application that use Google Cloud ecosystem. Requirements - the application is using at least three GAE services (one is Statefull) and is located in appspot.com domain.
+
+#### Prerequisites
+
+- A Google Cloud Platform Account and Google Cloud Project
+- Node.js
+- npm
+- Docker
+- gcloud
+
+#### Used Services
+
+- Google Cloud Platform
+- Google App Engine
+- Google Cloud Build
+- Firebase
+  - Authentication
+  - Database
+  - Storage
+
+#### Deployed Project
+
+- <https://yum-yum-app.appspot.com/>
