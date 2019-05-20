@@ -44,6 +44,8 @@ Delta < 0 => "Equation are no real roots"
 
 ## Homework 3 (Distributed applications using Google Cloud)
 
+- Repo : <https://github.com/silverfang94/yum-yum-app>
+
 ### H3 Description
 
 Create an application that use Google Cloud ecosystem. Requirements - the application is using at least three GAE services (one is Statefull) and is located in appspot.com domain.
